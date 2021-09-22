@@ -60,10 +60,10 @@ float ConvexHull::det(const std::shared_ptr<Point> &p,
 }
 
 Dataset ConvexHull::split(const std::shared_ptr<Point> &p1,
-              const std::shared_ptr<Point> &p2,
-              const Dataset &datapoints)
+                          const std::shared_ptr<Point> &p2,
+                          const Dataset &datapoints)
 {
-    Dataset new_datapoints = datapoints
+    Dataset new_datapoints;
     for (const auto &p : datapoints)
     {
         if (det(p, p1, p2) < 0)

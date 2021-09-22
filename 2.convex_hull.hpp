@@ -38,13 +38,12 @@ class ConvexHull: public Algorithm<Dataset> {
                     const std::shared_ptr<Point> &p2,
                     const Dataset &datapoints);
     public:
-        struct ParameterSet: public Algorithm::ParameterSet
+        struct ParameterSet
         {
             Dataset datapoints;
         };
         ConvexHull(const ParameterSet &ps):
-            datapoints(ps.datapoints),
-            Algorithm::Algorithm<Dataset>(ps)
+            datapoints(ps.datapoints)
         {}
         static ParameterSet parse_parameters(int argc, char *argv[]);
         static void print_usage(char *prog_name);

@@ -10,7 +10,7 @@ class Eratosthenes: public Algorithm<std::vector<long>>
         long N;
 
     public:
-        struct ParameterSet: public Algorithm::ParameterSet
+        struct ParameterSet
         {
             long N;
         };
