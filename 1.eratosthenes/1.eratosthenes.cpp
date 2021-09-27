@@ -11,7 +11,7 @@ Eratosthenes::ParameterSet Eratosthenes::parse_parameters(int argc, char *argv[]
     if (argc != 2)
     {
         Eratosthenes::print_usage(argv[0]);
-        throw "Wrong number of arguments";
+        throw std::runtime_error("Wrong number of arguments");
     }
 
     try
@@ -24,7 +24,7 @@ Eratosthenes::ParameterSet Eratosthenes::parse_parameters(int argc, char *argv[]
     catch(std::exception& e)
     {
         Eratosthenes::print_usage(argv[0]);
-        throw "Wrong argument provided";
+        throw std::runtime_error("Wrong argument provided");
     }
 }
 
@@ -52,14 +52,20 @@ std::vector<long> Eratosthenes::run()
 
 int main(int argc, char *argv[])
 {
-    auto ps = Eratosthenes::parse_parameters(argc, argv);
-    Eratosthenes er(ps);
-    const std::vector<long> primes = er.run();
-    for (const long &p : primes)
-    {
-        std::cout << p << " ";
+    try{
+        auto ps = Eratosthenes::parse_parameters(argc, argv);
+        Eratosthenes er(ps);
+        const std::vector<long> primes = er.run();
+        for (const long &p : primes)
+        {
+            std::cout << p << " ";
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
+    catch(std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 
     return 0;
 }

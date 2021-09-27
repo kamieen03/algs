@@ -26,7 +26,7 @@ PCA::ParameterSet PCA::parse_parameters(int argc, char *argv[])
     if (argc != 2)
     {
         PCA::print_usage(argv[0]);
-        throw "Wrong number of arguments";
+        throw std::runtime_error("Wrong number of arguments");
     }
 
     try
@@ -42,7 +42,7 @@ PCA::ParameterSet PCA::parse_parameters(int argc, char *argv[])
     catch(std::exception& e)
     {
         PCA::print_usage(argv[0]);
-        throw "Wrong argument provided";
+        throw std::runtime_error("Wrong argument provided");
     }
 }
 
@@ -83,11 +83,18 @@ Eigen::MatrixXf PCA::run()
 
 int main(int argc, char *argv[])
 {
-    auto ps = PCA::parse_parameters(argc, argv);
-    PCA er(ps);
-    std::cout << er.run() << "\n\n";
-    std::cout << er.get_eigenvalues() << "\n\n";
-    std::cout << er.get_eigenvectors() << std::endl;
+    try
+    {
+        auto ps = PCA::parse_parameters(argc, argv);
+        PCA er(ps);
+        std::cout << er.run() << "\n\n";
+        std::cout << er.get_eigenvalues() << "\n\n";
+        std::cout << er.get_eigenvectors() << std::endl;
+    }
+    catch(std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
     return 0;
 }
 

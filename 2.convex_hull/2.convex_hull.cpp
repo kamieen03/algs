@@ -28,7 +28,7 @@ ConvexHull::ParameterSet ConvexHull::parse_parameters(int argc, char *argv[])
     if (argc != 2)
     {
         ConvexHull::print_usage(argv[0]);
-        throw "Wrong number of arguments";
+        throw std::runtime_error("Wrong number of arguments");
     }
 
     try
@@ -44,7 +44,7 @@ ConvexHull::ParameterSet ConvexHull::parse_parameters(int argc, char *argv[])
     catch(std::exception& e)
     {
         ConvexHull::print_usage(argv[0]);
-        throw "Couldn't read the file";
+        throw std::runtime_error("Couldn't read the file");
     }
 }
 
@@ -111,14 +111,21 @@ Dataset ConvexHull::run()
 
 int main(int argc, char *argv[])
 {
-    ConvexHull::ParameterSet ps = ConvexHull::parse_parameters(argc, argv);
-    ConvexHull ch(ps);
-    Dataset convex_hull = ch.run();
-    for (const auto &p : convex_hull)
+    try
     {
-        std::cout << p->first << " " << p->second << "\n";
+        ConvexHull::ParameterSet ps = ConvexHull::parse_parameters(argc, argv);
+        ConvexHull ch(ps);
+        Dataset convex_hull = ch.run();
+        for (const auto &p : convex_hull)
+        {
+            std::cout << p->first << " " << p->second << "\n";
+        }
+        std::cout << std::flush;
     }
-    std::cout << std::flush;
+    catch(std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 
     return 0;
 }
