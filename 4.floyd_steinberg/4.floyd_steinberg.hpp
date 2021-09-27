@@ -14,7 +14,7 @@ class FloydSteinberg: public Algorithm<cv::Mat>
         cv::Mat input;
         cv::Mat output;
 
-        inline float round(const float &x);
+        inline cv::Vec3f round(const cv::Vec3f &x);
 
     public:
         struct ParameterSet
