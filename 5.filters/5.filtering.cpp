@@ -4,7 +4,7 @@ const std::map<std::string, std::function<std::unique_ptr<Filter>(int)>>
 Filtering::filter_name_to_filter
 {
     {"mean",  filter_maker<MeanFilter>},
-    //{"gauss", gaussian_kernel},
+    {"gauss", filter_maker<GaussianFilter>},
     {"vsobel", filter_maker<VerticalSobelFilter>},
     {"hsobel", filter_maker<HorizontalSobelFilter>},
     {"sobel", filter_maker<SobelFilter>}
@@ -15,8 +15,8 @@ void Filtering::print_usage(char *prog_name)
 {
     std::cerr << "Usage: " << prog_name << " image_path filter_name filter_size\n" ;
     std::cerr << "\timage_path - path to the input image\n";
-    std::cerr << "\tfilter_name - (mean|gauss|sobel)\n";
-    std::cerr << "\tfilter_size - integer; only applies to mean and gauss" << std::endl;
+    std::cerr << "\tfilter_name - (mean|gauss|sobel|hsobel|vsobel)\n";
+    std::cerr << "\tfilter_size - integer" << std::endl;
 }
 
 Filtering::ParameterSet Filtering::parse_parameters(int argc, char *argv[])

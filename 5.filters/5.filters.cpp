@@ -128,3 +128,27 @@ cv::Mat SobelFilter::run(const cv::Mat &img)
     return gx;
 }
 
+//------------Gaussian-Filter--------------------------
+
+cv::Mat GaussianFilter::get_kernel()
+{
+    const size_t size = get_filter_size();
+    cv::Mat kernel = cv::Mat::zeros(size, size, CV_32FC1);
+    int i, j;
+    float sum = 0;
+
+    for(int I = 0; I < size; I++)
+    {
+        for(int J = 0; J < size; J++)
+        {
+            i = I - (size-1)/2;
+            j = J - (size-1)/2;
+            kernel.at<float>(I, J) = exp(-(i*i+j*j)/(2*sigma*sigma));
+            sum += kernel.at<float>(I, J);
+        }
+    }
+    kernel /= sum;
+    return kernel;
+}
+
+

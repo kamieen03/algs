@@ -1,4 +1,5 @@
 #include <opencv2/opencv.hpp>
+#include <math.h>
 
 class Filter
 {
@@ -79,6 +80,17 @@ class SobelFilter : public Filter
         cv::Mat run(const cv::Mat &img);
     public:
         SobelFilter(size_t size):
+            Filter(size)
+        {}
+};
+
+class GaussianFilter : public Filter
+{
+    private:
+        const float sigma = 1.0;
+        cv::Mat get_kernel();
+    public:
+        GaussianFilter(size_t size):
             Filter(size)
         {}
 };
